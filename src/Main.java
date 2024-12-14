@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -14,6 +16,8 @@ public class Main {
     public static void Boot(){
         Scanner scan = new Scanner(System.in);
 
+        List<Book> books = new ArrayList<>();
+
 
 
         while (active){
@@ -24,15 +28,33 @@ public class Main {
 
             try {
                 choice = scan.nextInt();
+                scan.nextLine();
             }catch (Exception e){
                 System.out.println("Please, enter a valid number");
                 Boot();
             }
             if(choice == 1){
 
+                System.out.println("Please, select a book to loan");
+                for (int i = 0; i < books.size(); i++) {
+                    Book actualBook = books.get(i);
+                    if(actualBook.getAvailable()) {
+                        System.out.printf("%d %s, by %s%n", i, actualBook.getTitle(), actualBook.getAuthor());
+                    }
+                }
+                int bookChosen = scan.nextInt();
+                books.get(bookChosen).lend();
             }
             if(choice == 2){
-
+                System.out.println("Please, select a book to refund");
+                for (int i = 0; i < books.size(); i++) {
+                    Book actualBook = books.get(i);
+                    if(!actualBook.getAvailable()) {
+                        System.out.printf("%d %s, by %s%n", i, actualBook.getTitle(), actualBook.getAuthor());
+                    }
+                }
+                int bookChosen = scan.nextInt();
+                books.get(bookChosen).refund();
             }
             if(choice == 3){
                 String bookName;
@@ -44,9 +66,10 @@ public class Main {
                 System.out.println("Please, enter the name of the author");
                 authorName = scan.nextLine();
 
-                System.out.println(bookName + authorName);
+                System.out.printf("The book %s by %s has been successfully registered!%n", bookName, authorName);
 
-
+                Book book = new Book(bookName, authorName);
+                books.add(book);
             }
             if (choice == 4){
                 active = false;

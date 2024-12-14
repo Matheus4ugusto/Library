@@ -11,14 +11,13 @@ public class Book {
         this.title = title;
         this.author = author;
         this.available = true;
-        this.id = rand.nextInt(1000);
     }
 
-    public void Loan(){
+    public void lend(){
         setAvailable(false);
     }
 
-    public void Refund(){
+    public void refund(){
         setAvailable(true);
     }
 
@@ -34,20 +33,8 @@ public class Book {
         return available;
     }
 
-    public void setAvailable(Boolean available) {
+    private void setAvailable(Boolean available) {
         this.available = available;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public void Lend(Integer id){
-
     }
 
     public String getTitle() {
